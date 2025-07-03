@@ -234,8 +234,8 @@ class HeteroSurface(mi.BSDF):
     self.render_field = False
     
     ## render speckle patterns
-    ## currently it only works well with direct illumination (depth=1)
-    ## depth > 1 will lead to artifacts due to the sampling strategy
+    ## currently it only works well with direct illumination (depth=2)
+    ## depth > 2 will lead to artifacts due to the sampling strategy
     ## if set to False, the BSDF will render mean statistics
     self.render_speckle = get_props('render_speckle', True)
 
@@ -442,7 +442,7 @@ class HeteroSurface(mi.BSDF):
     if self.render_speckle:
       bs.wo = mi.warp.square_to_uniform_hemisphere(sample2)
       bs.pdf = mi.warp.square_to_uniform_hemisphere_pdf(bs.wo)
-      val = self.eval(ctx, si, bs.wo, active) / bs.pdf
+      val = self.eval_brdf_speckle(ctx, si, bs.wo, active) / bs.pdf
     
     ## single-process
     elif len(self.materials) == 1:

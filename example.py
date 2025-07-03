@@ -12,18 +12,18 @@ from heterosurface import Material
 
 cbsdf = mi.load_dict({
   'type': 'heterosurface',
-  'M': 4,
+  'M': 4,   # samples for speckle rendering, see BSDF init for other parameters
 })
 cbsdf.set_materials([
   Material(
-    mu    = [0, 1.5, 3.9],
-    sigma = [2e-7, 1e-18, 1e-18],
-    rho   = [0, 0, 0],
-    T     = [6e-7, 2e-7, 2e-7],
-    Tc    = [2e-7, 2e-7, 0],
+    mu    = [0, 1.5, 3.9],        # mean: mu_h, mu_r_re, mu_r_im
+    sigma = [2e-7, 1e-18, 1e-18], # stddev: sigma_h, sigma_r_re, sigma_r_im
+    rho   = [0, 0, 0],            # correlation coeff: rho_hr (h and r_re), rho_hj (h and r_im), 0
+    T     = [6e-7, 2e-7, 2e-7],   # correlation distance: T_h, T_r_re, T_r_im
+    Tc    = [2e-7, 2e-7, 0],      # cross-correlation distance: T_hr (h and r_re), T_hj (h and r_im), 0
   ),
 ])
-cbsdf.beam_width = 6e-6
+cbsdf.beam_width = 6e-6           # beam width
 cbsdf.parameters_changed()
 
 scene_dict = {
@@ -87,9 +87,7 @@ if __name__ == '__main__':
 
   ## 2. render speckles from near to far
   dists = [1, 2, 4, 8, 32]
-
   cbsdf.render_speckle = True
-  cbsdf.render_field = False
 
   for d in dists:
     cbsdf.update_scale(d)
