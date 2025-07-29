@@ -1,4 +1,6 @@
 # A Fully-statistical Wave Scattering Model for Heterogeneous Surfaces
+<img src="teaser.png" alt="teaser" style="zoom: 40%;" />
+
 This repository contains the implementation for the paper "A Fully-statistical Wave Scattering Model for Heterogeneous Surfaces", to be presented in SIGGRAPH 2025 (Journal Track).
 
 The implementation is presented as a BSDF plugin of [Mitsuba 3](https://github.com/mitsuba-renderer/mitsuba3), and comes with an [example script](example.py).
